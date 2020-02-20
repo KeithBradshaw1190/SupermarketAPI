@@ -38,9 +38,7 @@ router.post("/api/login", (req, res) => {
               success: true
             });
           } else {
-            res.status(404).json({
-              success: false
-            });
+            res.sendStatus(400);
           }
         });
       }

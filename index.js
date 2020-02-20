@@ -4,11 +4,12 @@ const express = require("express");
 const bodyParser = require("body-parser");
 // Import Mongoose
 const mongoose = require("mongoose");
-
+//
 // Initialise the app
 const app = express();
 
 // Import routes
+const verifyWebhook = require("./routes/verify-webhook");
 const customer = require("./routes/customer");
 const products = require("./routes/shopping_list");
 const delivery = require("./routes/delivery");
@@ -43,7 +44,7 @@ if (!db) console.log("Error connecting db");
 else console.log("Db connected successfully");
 
 // Setup server port
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 3002;
 
 // Send message for default URL
 app.get("/", (req, res) =>
@@ -56,6 +57,7 @@ app.use(customer);
 //app.use(products);
 app.use(delivery);
 app.use(pickup);
+app.use(verifyWebhook);
 
 // Launch app to listen to specified port
 app.listen(port, function () {
