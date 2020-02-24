@@ -18,16 +18,24 @@ router.get("/api/delivery", (req, res) => {
         .then(items => console.log(res.json(items)));
 });
 
-//Get a delivery by ID
+//Get a delivery by deliveryID
 router.get("/api/delivery/:id", (req, res) => {
     DeliveryModel.findById({
         _id: req.params.id
     }).then(items => console.log(res.json(items)));
 });
+//Get most recent delivery by customerid
+router.get("/api/delivery/customer/:id", (req, res) => {
+    DeliveryModel.find({
+        customer_id: req.params.id
+    }).sort({
+        "updatedAt": -1
+    }).limit(1).then(items => console.log(res.json(items)));
+});
 
 // Time Period available for delivery
 router.get("/api/delivery-time", (req, res) => {
-    res.json({
+    res.send({
         deliveryOpen: delivery_open,
         deliveryClosed: delivery_closed
     });
