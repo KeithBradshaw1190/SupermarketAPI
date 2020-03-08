@@ -15,7 +15,7 @@ router.get("/api/delivery", (req, res) => {
         .sort({
             date: -1
         })
-        .then(items => console.log(res.json(items)));
+        .then(items => console.log(res.status(200).json(items)));
 });
 
 //Get a delivery by deliveryID
@@ -49,27 +49,18 @@ router.post("/api/delivery/:customer_id", (req, res) => {
         list_name: req.body.list_name,
         delivery_time: req.body.delivery_time,
         delivery_date: req.body.delivery_date,
-        firebaseUID: req.body.firebaseUID
+        messengerID: req.body.messengerID
     });
-    // Parse and format date/time for delivery
-    //time.split(t)
-    //make a get request to firbase for the shopping list
-    //We need to access thefirebase db
-    // var firebaseUID = delivery.firebaseUID;
-    // var listName = delivery.list_name
-    // var list_items = [];
-    //console.log(delivery);
-    // let listRef = fb.db.collection("shopping_lists");
 
     grabUserData = async () => {
         console.log("grabbing user data");
         console.log(delivery)
-        var firebaseUID = delivery.firebaseUID;
+        var messengerID = delivery.messengerID;
         var listName = delivery.list_name
         // var list_items = [];
         let listRef = fb.db.collection("shopping_lists");
         try {
-            listRef.where("uid", "==", firebaseUID).where("listName", "==", listName).get()
+            listRef.where("messengerID", "==", messengerID).where("listName", "==", listName).get()
                 .then(snapshot => {
                     if (snapshot.empty) {
                         res.sendStatus(404);
@@ -81,7 +72,7 @@ router.post("/api/delivery/:customer_id", (req, res) => {
                             delivery.items_in_list = d.data().items;
                             delivery.order_price = d.data().list_price;
                             delivery.list_quantity = d.data().list_quantity
-                            delivery.save().then(item => res.json(item));
+                            delivery.save().then(item => res.sendStatus(201).json(item));
 
                         })
                     }
@@ -138,7 +129,7 @@ router.delete("/api/delivery/:id", (req, res) => {
             _id: req.params.id
         })
         .then(() =>
-            res.json({
+            res.status(200).json({
                 success: true
             })
         )
@@ -157,7 +148,7 @@ router.put("/api/delivery/:id", (req, res) => {
             req.body
         )
         .then(() =>
-            res.json({
+            res.status(204).json({
                 success: true
             })
         )

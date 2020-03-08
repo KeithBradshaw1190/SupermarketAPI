@@ -48,7 +48,7 @@ router.post("/api/pickup/:customer_id", (req, res) => {
         list_name: req.body.list_name,
         pickup_time: req.body.pickup_time,
         pickup_date: req.body.pickup_date,
-        firebaseUID: req.body.firebaseUID
+        messengerID: req.body.messengerID
     });
     // Parse and format date/time for pickup
     //time.split(t)
@@ -63,12 +63,12 @@ router.post("/api/pickup/:customer_id", (req, res) => {
     grabUserData = async () => {
         console.log("grabbing user data");
         console.log(pickup)
-        var firebaseUID = pickup.firebaseUID;
+        var messengerID = pickup.messengerID;
         var listName = pickup.list_name
         // var list_items = [];
         let listRef = fb.db.collection("shopping_lists");
         try {
-            listRef.where("uid", "==", firebaseUID).where("listName", "==", listName).get()
+            listRef.where("messengerID", "==", messengerID).where("listName", "==", listName).get()
                 .then(snapshot => {
                     if (snapshot.empty) {
                         res.sendStatus(404);
@@ -91,7 +91,7 @@ router.post("/api/pickup/:customer_id", (req, res) => {
     }
     grabUserData();
     console.log(pickup)
-    
+
 });
 
 // Delete an entry

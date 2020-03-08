@@ -18,7 +18,7 @@ const PickupSchema = new mongoose.Schema({
     list_quantity: {
         type: Number
     },
-    firebaseUID: String
+    messengerID: String
 }, {
     timestamps: true
 });
