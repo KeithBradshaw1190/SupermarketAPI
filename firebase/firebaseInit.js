@@ -2,7 +2,7 @@
 // Firebase App (the core Firebase SDK) is always required and must be listed first
 // Add the Firebase products that you want to use
 if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').load();
+    require('dotenv').config();
 }
 require("firebase/auth");
 require("firebase/firestore");

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').load();
+    require('dotenv').config();
 }
 //Webtoken for Facebook
 router.get('/api/facebook', (req, res) => {

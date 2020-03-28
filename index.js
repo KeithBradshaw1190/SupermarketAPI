@@ -1,6 +1,7 @@
 if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').load();
+  require('dotenv').config();
 }
+
 // Import express
 const express = require("express");
 // Import Body parser
@@ -47,7 +48,7 @@ if (!db) console.log("Error connecting db");
 else console.log("Db connected successfully");
 
 // Setup server port
-var port = process.env.PORT || 3002;
+var port = process.env.PORT || 3003;
 
 // Send message for default URL
 app.get("/", (req, res) =>

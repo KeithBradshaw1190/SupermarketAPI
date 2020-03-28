@@ -1,5 +1,5 @@
 if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').load();
+    require('dotenv')
 }
 module.exports = {
     apiKey: process.env.FIREBASE_API_KEY,
