@@ -3,7 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
 // Import Bcrypt
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt-nodejs");
 const saltRounds = 10;
 // Read all entries
 router.get("/api/customers", (req, res) => {
