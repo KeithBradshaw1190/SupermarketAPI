@@ -10,13 +10,13 @@ var delivery_open = "07:00:00";
 var delivery_closed = "21:00:00";
 
 // Read all entries
-router.get("/api/delivery", (req, res) => {
-    DeliveryModel.find()
-        .sort({
-            date: -1
-        })
-        .then(items => console.log(res.status(200).json(items)));
-});
+// router.get("/api/delivery", (req, res) => {
+//     DeliveryModel.find()
+//         .sort({
+//             date: -1
+//         })
+//         .then(items => console.log(res.status(200).json(items)));
+// });
 
 //Get a delivery by deliveryID
 router.get("/api/delivery/:id", (req, res) => {

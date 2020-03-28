@@ -9,13 +9,13 @@ var pickup_open = "07:00:00";
 var pickup_closed = "21:00:00";
 
 // Read all entries
-router.get("/api/pickup", (req, res) => {
-    PickupModel.find()
-        .sort({
-            date: -1
-        })
-        .then(items => console.log(res.json(items)));
-});
+// router.get("/api/pickup", (req, res) => {
+//     PickupModel.find()
+//         .sort({
+//             date: -1
+//         })
+//         .then(items => console.log(res.json(items)));
+// });
 
 //Get a pickup by ID
 router.get("/api/pickup/:id", (req, res) => {

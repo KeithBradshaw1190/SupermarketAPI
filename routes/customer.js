@@ -6,9 +6,9 @@ const router = express.Router();
 const bcrypt = require("bcrypt-nodejs");
 const saltRounds = 10;
 // Read all entries
-router.get("/api/customers", (req, res) => {
-  CustomerModel.find().then(items => console.log(res.json(items)));
-});
+// router.get("/api/customers", (req, res) => {
+//   CustomerModel.find().then(items => console.log(res.json(items)));
+// });
 
 //Get a Customer by ID
 router.get("/api/customer/:id", (req, res) => {
