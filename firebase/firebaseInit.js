@@ -1,6 +1,9 @@
 //import firebase from 'firebase'
 // Firebase App (the core Firebase SDK) is always required and must be listed first
 // Add the Firebase products that you want to use
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').load();
+}
 require("firebase/auth");
 require("firebase/firestore");
 require("firebase/analytics");
@@ -12,7 +15,7 @@ const firebase = require('firebase');
 
 var firebaseConfig = ("./firebaseConfig");
 const fbApp = firebase.initializeApp({
-    apiKey: "AIzaSyCNPHepMzvVVRdBJ5rggNjfoLTYfcgmPoI",
+    apiKey: process.env.FIREBASE_API_KEY,
     authDomain: "smartgrocery-88590.firebaseapp.com",
     databaseURL: "https://smartgrocery-88590.firebaseio.com",
     projectId: "smartgrocery-88590",

@@ -1,3 +1,6 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').load();
+}
 // Import express
 const express = require("express");
 // Import Body parser
@@ -33,7 +36,7 @@ app.use(
 app.use(bodyParser.json());
 // Connect to Mongoose and set connection variable
 mongoose.connect(
-  "mongodb+srv://keithb:Lotus1964!@supermarket-9immb.mongodb.net/users?retryWrites=true&w=majority", {
+  process.env.MONGOOSE_CONNECT, {
     useNewUrlParser: true
   }
 );

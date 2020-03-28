@@ -80,7 +80,7 @@ router.post("/api/pickup/:customer_id", (req, res) => {
                             pickup.items_in_list = d.data().items;
                             pickup.order_price = d.data().list_price;
                             pickup.list_quantity = d.data().list_quantity
-                            pickup.save().then(item => res.json(item));
+                            pickup.save().then(item => res.sendStatus(201));
 
                         })
                     }

@@ -1,5 +1,8 @@
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').load();
+}
 module.exports = {
-    apiKey: "AIzaSyCNPHepMzvVVRdBJ5rggNjfoLTYfcgmPoI",
+    apiKey: process.env.FIREBASE_API_KEY,
     authDomain: "smartgrocery-88590.firebaseapp.com",
     databaseURL: "https://smartgrocery-88590.firebaseio.com",
     projectId: "smartgrocery-88590",

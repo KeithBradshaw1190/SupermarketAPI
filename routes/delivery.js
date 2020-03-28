@@ -72,7 +72,7 @@ router.post("/api/delivery/:customer_id", (req, res) => {
                             delivery.items_in_list = d.data().items;
                             delivery.order_price = d.data().list_price;
                             delivery.list_quantity = d.data().list_quantity
-                            delivery.save().then(item => res.sendStatus(201).json(item));
+                            delivery.save().then(item => res.sendStatus(201));
 
                         })
                     }
