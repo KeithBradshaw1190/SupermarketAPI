@@ -20,21 +20,22 @@ const delivery = require("./routes/delivery");
 const pickup = require("./routes/pickup");
 
 // CORs
-//const cors = require('cors')
+const cors = require('cors')
 
-//app.use(cors());
-app.all('*', function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-  res.header("Access-Control-Allow-Headers", 'Authorization, Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-  next();
-});
+app.use(cors());
 // Configure bodyparser to handle post requests
 app.use(
   bodyParser.urlencoded({
     extended: true
   })
 );
+app.use('*', function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+  res.header("Access-Control-Allow-Headers", 'Authorization, Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+  next();
+});
+
 app.use(bodyParser.json());
 // Connect to Mongoose and set connection variable
 mongoose.connect(

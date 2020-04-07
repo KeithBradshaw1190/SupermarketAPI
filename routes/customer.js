@@ -54,13 +54,13 @@ router.post("/api/register", (req, res) => {
     email: email
   }, function (err, foundUser) {
     if (err) {
-      console.log(err);
+      console.log("Error found in first"+err);
     } else {
       //Else Create new customer
       if (!foundUser) {
+        console.log("not a found user");
         bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
           const customer = new CustomerModel({
-            name: req.body.name,
             email: req.body.email,
             password: hash,
             address: req.body.address
