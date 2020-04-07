@@ -23,7 +23,7 @@ const pickup = require("./routes/pickup");
 //const cors = require('cors')
 
 //app.use(cors());
-
+app.use(allowCrossDomain)
 app.use(function (req, res, next) {
   // Website you wish to allow to connect 'https://smartgrocery-manager.herokuapp.com' 
 
