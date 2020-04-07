@@ -26,7 +26,7 @@ const pickup = require("./routes/pickup");
 app.all('*', function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.header("Access-Control-Allow-Headers", 'Authorization, Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
   next();
 });
 // Configure bodyparser to handle post requests
@@ -39,7 +39,9 @@ app.use(bodyParser.json());
 // Connect to Mongoose and set connection variable
 mongoose.connect(
   process.env.MONGOOSE_CONNECT, {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+
   }
 );
 var db = mongoose.connection;
