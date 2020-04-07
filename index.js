@@ -29,7 +29,7 @@ app.use(function (req, res, next) {
   next();
 });
 // Configure bodyparser to handle post requests
-app.use(
+app.use(cors(),
   bodyParser.urlencoded({
     extended: true
   })
