@@ -65,8 +65,10 @@ router.post("/api/register", (req, res) => {
             password: hash,
             address: req.body.address
           });
-          customer.save().then(item => res.json(item));
-        });
+          customer.save().then(res.status(201));
+        }).catch(
+          res.status(400)
+        );
       } else {
         res.status(404).json({
           success: false
