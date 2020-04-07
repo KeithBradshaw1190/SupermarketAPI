@@ -25,8 +25,9 @@ const pickup = require("./routes/pickup");
 //app.use(cors());
 
 app.use(function (req, res, next) {
-  // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8888');
+  // Website you wish to allow to connect 'https://smartgrocery-manager.herokuapp.com' 
+
+  res.setHeader('Access-Control-Allow-Origin', 'https://smartgrocery-manager.herokuapp.com');
 
   // Request methods you wish to allow
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
