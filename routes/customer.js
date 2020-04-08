@@ -72,11 +72,15 @@ router.post("/api/register", (req, res) => {
               address: req.body.address
             });
             //Successfully created
-            customer.save().then(() => res.sendStatus(201)).catch((msg) => {
-              res.status(400).json({
-                messsage: msg
-              })
-            });
+            customer.save()
+              .then((cust) => res.status(201).json({
+                id: cust._id
+              }))
+              .catch((msg) => {
+                res.status(400).json({
+                  messsage: msg
+                })
+              });
           }
         });
       } else {
