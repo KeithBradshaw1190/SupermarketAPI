@@ -23,26 +23,22 @@ const pickup = require("./routes/pickup");
 const cors = require('cors')
 
 app.use(cors());
+
+app.use(function (req, res, next) {
+
+  next();
+});
 // Configure bodyparser to handle post requests
 app.use(
   bodyParser.urlencoded({
     extended: true
   })
 );
-app.use('*', function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-  res.header("Access-Control-Allow-Headers", 'Authorization, Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-  next();
-});
-
 app.use(bodyParser.json());
 // Connect to Mongoose and set connection variable
 mongoose.connect(
   process.env.MONGOOSE_CONNECT, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-
+    useNewUrlParser: true
   }
 );
 var db = mongoose.connection;
@@ -56,7 +52,7 @@ var port = process.env.PORT || 3003;
 
 // Send message for default URL
 app.get("/", (req, res) =>
-  res.send("Supermarket API- Routes are /api/customer")
+  res.send("Supermarket API- Routes are /api/{routename}")
 );
 app.use(express.json());
 

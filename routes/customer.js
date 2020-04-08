@@ -3,7 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
 // Import Bcrypt
-const bcrypt = require("bcrypt-nodejs");
+const bcrypt = require("bcrypt");
 const saltRounds = 10;
 // Read all entries
 // router.get("/api/customers", (req, res) => {
@@ -22,6 +22,7 @@ router.post("/api/login", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   console.log(email);
+
   //Check if customer Exists
   CustomerModel.findOne({
     email: email
@@ -49,30 +50,38 @@ router.post("/api/login", (req, res) => {
 // Add a new customer + Hash password
 router.post("/api/register", (req, res) => {
   const email = req.body.email;
-  //Check if customer Exists
+  const password = req.body.password
+  //Check if customer Exist
+  console.log("req body" + req.body)
   CustomerModel.findOne({
-    email: email
-  }, function (err, foundUser) {
+    "email": email
+  }, (err, foundUser) => {
     if (err) {
-      console.log("Error found in first"+err);
+      res.status(500).send(err)
     } else {
+      //console.log(foundUser);
       //Else Create new customer
       if (!foundUser) {
-        console.log("not a found user");
-        bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
-          const customer = new CustomerModel({
-            email: req.body.email,
-            password: hash,
-            address: req.body.address
-          });
-          customer.save().then(res.status(201));
-        }).catch(
-          res.status(400)
-        );
-      } else {
-        res.status(404).json({
-          success: false
+        bcrypt.hash(password, saltRounds, (err, hash) => {
+          if (err) {
+            console.log(err);
+          } else {
+            const customer = new CustomerModel({
+              email: req.body.email,
+              password: hash,
+              address: req.body.address
+            });
+            //Successfully created
+            customer.save().then(() => res.sendStatus(201)).catch((msg) => {
+              res.status(400).json({
+                messsage: msg
+              })
+            });
+          }
         });
+      } else {
+        //User exists
+        res.sendStatus(409);
       }
     }
   });
