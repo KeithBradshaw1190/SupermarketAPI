@@ -72,13 +72,15 @@ router.post("/api/delivery/:customer_id", (req, res) => {
                             delivery.items_in_list = d.data().items;
                             delivery.order_price = d.data().list_price;
                             delivery.list_quantity = d.data().list_quantity
-                            delivery.save().then(item => res.sendStatus(201));
+                            delivery.save()
+                                .then(() => res.send(201))
+                                .catch(() => res.send(404));
 
                         })
                     }
                 });
         } catch (error) {
-            console.log("Error getting document:", error);
+            console.log("Error getting document:"+ error);
         };
     }
     grabUserData();
