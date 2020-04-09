@@ -43,7 +43,7 @@ router.get("/api/delivery-time", (req, res) => {
 
 // Add a new entry
 router.post("/api/delivery/:customer_id", (req, res) => {
-    console.log("Req Body: " + req.body);
+    console.log(req.body);
     var delivery = new DeliveryModel({
         customer_id: req.params.customer_id,
         list_name: req.body.list_name,
@@ -52,13 +52,12 @@ router.post("/api/delivery/:customer_id", (req, res) => {
         messengerID: req.body.messengerID
     });
 
-    grabUserData = async (delivery) => {
+    grabUserData = async () => {
         console.log("grabbing user data");
-        console.log("Delivery passed to grab data" + delivery.messengerID)
+        console.log("MessengerID" + delivery.messengerID)
         var messengerID = delivery.messengerID;
         var listName = delivery.list_name
         // var list_items = [];
-        console.log("List Name/messengerID" + [messengerID, listName]);
         let listRef = fb.db.collection("shopping_lists");
         try {
             listRef.where("messengerID", "==", messengerID).where("listName", "==", listName).get()
