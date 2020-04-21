@@ -15,7 +15,6 @@ const app = express();
 // Import routes
 const verifyWebhook = require("./routes/verify-webhook");
 const customer = require("./routes/customer");
-const products = require("./routes/shopping_list");
 const delivery = require("./routes/delivery");
 const pickup = require("./routes/pickup");
 
