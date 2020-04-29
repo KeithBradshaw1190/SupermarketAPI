@@ -35,20 +35,33 @@ router.get("/api/delivery/customer/:id", (req, res) => {
 
 //Get ALL deveries by customerid
 router.get("/api/delivery/all/customer/:id", (req, res) => {
+    var arr = [];
     DeliveryModel.find({
         customer_id: req.params.id
     }).sort({
         "updatedAt": -1
-    }).aggregate(
-        [{
-            "$group": {
-                "_id": {
-                    market: "$market",
-                    code: "$code"
-                }
+    }).then(deliveries => {
+        arr = deliveries
+        arr.sort(function (a, b) {
+            return (a.customer_id - b.customer_id);
+        });
+
+        // delete all duplicates from the array
+        for (var i = 0; i < arr.length - 1; i++) {
+            if ((arr[i].delivery_time == arr[i + 1].delivery_time) && (arr[i].delivery_date == arr[i + 1].delivery_date)) {
+                delete arr[i];
+                console.log("deleting");
             }
-        }]
-    ).then(deliveries => console.log(res.json(deliveries)));
+        }
+
+        // remove the "undefined entries"
+        arr = arr.filter(function (el) {
+            return (typeof el !== "undefined");
+        });
+        res.json(arr);
+    });
+
+
 });
 
 // Time Period available for delivery
