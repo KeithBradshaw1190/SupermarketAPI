@@ -33,6 +33,24 @@ router.get("/api/delivery/customer/:id", (req, res) => {
     }).limit(1).then(items => console.log(res.json(items)));
 });
 
+//Get ALL deveries by customerid
+router.get("/api/delivery/all/customer/:id", (req, res) => {
+    DeliveryModel.find({
+        customer_id: req.params.id
+    }).sort({
+        "updatedAt": -1
+    }).aggregate(
+        [{
+            "$group": {
+                "_id": {
+                    market: "$market",
+                    code: "$code"
+                }
+            }
+        }]
+    ).then(deliveries => console.log(res.json(deliveries)));
+});
+
 // Time Period available for delivery
 router.get("/api/delivery-time", (req, res) => {
     res.send({
