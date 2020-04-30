@@ -23,13 +23,43 @@ router.get("/api/pickup/:id", (req, res) => {
         _id: req.params.id
     }).then(items => console.log(res.json(items)));
 });
-
+//Get most recent pickup by customer_id
 router.get("/api/pickup/customer/:id", (req, res) => {
     PickupModel.find({
         customer_id: req.params.id
     }).sort({
         "updatedAt": -1
     }).limit(1).then(items => console.log(res.json(items)));
+});
+//Get ALL pickups by customer_id
+router.get("/api/pickup/all/customer/:id", (req, res) => {
+    var arr = [];
+    PickupModel.find({
+        customer_id: req.params.id
+    }).sort({
+        "updatedAt": -1
+    }).then(pickups => {
+        arr = pickups
+        arr.sort(function (a, b) {
+            return (a.customer_id - b.customer_id);
+        });
+
+        // delete all duplicates from the array
+        for (var i = 0; i < arr.length - 1; i++) {
+            if ((arr[i].pickup_time == arr[i + 1].pickup_time) && (arr[i].pickup_date == arr[i + 1].pickup_date)) {
+                delete arr[i];
+                //console.log("deleting");
+            }
+        }
+
+        // remove the "undefined entries"
+        arr = arr.filter(function (el) {
+            return (typeof el !== "undefined");
+        });
+        res.json(arr);
+    });
+
+
 });
 
 // Time Period available for pickup

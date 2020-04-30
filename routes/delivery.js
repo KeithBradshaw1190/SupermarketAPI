@@ -50,7 +50,7 @@ router.get("/api/delivery/all/customer/:id", (req, res) => {
         for (var i = 0; i < arr.length - 1; i++) {
             if ((arr[i].delivery_time == arr[i + 1].delivery_time) && (arr[i].delivery_date == arr[i + 1].delivery_date)) {
                 delete arr[i];
-                console.log("deleting");
+               // console.log("deleting");
             }
         }
 
